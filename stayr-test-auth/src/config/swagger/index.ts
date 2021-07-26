@@ -3,8 +3,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export async function configSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle('Auth Service Api Doc')
-    .setDescription('Api document for blog service')
+    .setTitle('Auth Service Api Document')
+    .setDescription('Api document for auth service')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

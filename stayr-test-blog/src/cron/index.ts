@@ -16,6 +16,5 @@ export const cronjob = async (event: any, context: any, callback: any) => {
     })
     .catch((err) => {
       console.log(`=== Cron ${event.type} fail ===`);
-      console.log(err);
     });
 };

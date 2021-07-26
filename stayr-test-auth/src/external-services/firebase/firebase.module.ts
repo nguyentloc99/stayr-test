@@ -25,7 +25,6 @@ export class FirebaseModule {
         authService.firebaseApp = app;
       })
       .catch((e) => {
-        console.log(e);
         console.log('===Initiate Firebase Fail===');
         process.exit();
       });

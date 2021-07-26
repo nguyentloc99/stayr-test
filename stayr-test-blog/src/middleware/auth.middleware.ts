@@ -14,7 +14,6 @@ export class AuthMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     const testPublicRouteRegex = /([\/]?)public([\/]?)/;
-    console.log(req.originalUrl);
     if (testPublicRouteRegex.test(req.originalUrl)) {
       return next();
     }
@@ -29,7 +28,6 @@ export class AuthMiddleware implements NestMiddleware {
         next();
       })
       .catch((err) => {
-        console.log(err);
         res
           .status(401)
           .send({
