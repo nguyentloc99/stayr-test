@@ -1,5 +1,5 @@
 service:
-  name: stayr-test-serverless
+  name: stayr-test-auth-serverless
 
 plugins:
   # - serverless-plugin-optimize

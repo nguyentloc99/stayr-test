@@ -9,6 +9,7 @@ interface AwsSecretModel {
   AUTH_POSTGRES_USERNAME?: string;
   AUTH_POSTGRES_PASSWORD?: string;
   AUTH_POSTGRES_DATABASE?: string;
+  AUTH_SERVICE_URL?: string;
 }
 
 @Injectable()
