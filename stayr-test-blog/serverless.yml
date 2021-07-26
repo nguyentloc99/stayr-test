@@ -1,0 +1,78 @@
+service:
+  name: stayr-test-blog-serverless
+
+plugins:
+  - serverless-offline
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .github/**
+    - .byc_output/**
+    - .vsscode/**
+    - charts/**
+    - devops/**
+    - patches/**
+    - src/**
+    - test/**
+    - tracker/**
+    - .cfignore
+    - .editorconfig
+    - .env
+    - .env1
+    - .gitignore
+    - debug.log
+    - jest.config.js
+    - README.md
+    - test.env
+    - tsconfig.json
+    - tslint.json
+    - tsoa.json
+    - migration/**
+    - ormconfig.json
+    - README.md
+    - tsconfig.build.json
+    - .aws/**
+    - nest-cli.json
+    - .prettierrc
+
+custom:
+  serverless-offline:
+    httpPort: 3001
+    lambdaPort: 3011
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 512
+  timeout: 20
+  deploymentBucket:
+    blockPublicAccess: true
+  environment:
+    SECRET_NAME: dev/stayr-test
+    PORT: 8081
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - secretsmanager:GetResourcePolicy
+        - secretsmanager:GetSecretValue
+        - secretsmanager:DescribeSecret
+        - secretsmanager:ListSecretVersionIds
+      Resource:
+        - arn:aws:secretsmanager:ap-southeast-1:802178953853:secret:dev/stayr-test-*
+
+functions:
+  stayr-blog:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
+  cronjob:
+    handler: dist/cron/index.cronjob
+    events:
+      - schedule:
+          rate: cron(1 0 * * ? *)
+          enabled: true
+          input:
+            type: ADD_RANDOM_WORD
